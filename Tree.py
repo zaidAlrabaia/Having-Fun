@@ -116,13 +116,49 @@ def postorder_DFS (tree):
                 visited.append(False)
                 stack.append(cur.left)
                 visited.append(False)
-
-def postorder_DFS (tree):
-    if not tree:
+            
+def preorder_DFS3 (tree):
+    if tree is None:
         return []
+    
     stack = [tree]
-    visited = [False]
     result = []
+
+    while stack:
+        node = stack.pop()
+        result.append(node.value)
+
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+
+    return result
+
+def inorder_DFS3 (root):
+    if root is None:
+        return []
+    
+    stack = []
+    result = []
+    cur = root
+
+    while cur or stack:
+        while cur:
+            stack.append(cur)
+            cur = cur.left
+        cur = stack.pop()
+        result.append(cur.value)
+        cur = cur.right
+    return result
+
+def postorder_DFS3 (root):
+    if root is None:
+        return []
+    
+    stack = [root]
+    result = []
+    visited = [False]
 
     while stack:
         cur = stack.pop()
@@ -132,8 +168,73 @@ def postorder_DFS (tree):
             result.append(cur.value)
         else:
             stack.append(cur)
-            visited
+            result.append(True)
+            stack.append(cur.right)
+            result.append(False)
+            stack.append(cur.left)
+            result.append(False)
+    return result
+
+def BFS (root):
+    if root is None:
+        return []
+    
+    q = deque()
+    q.append(root)
+    results = []
+
+    while q:
+        qLen = len(q)
+        level = []
+
+        for i in range(qLen):
+            node = q.popleft()
+            level.append(node.val)
+
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        
+        results.append(level)
+    return results
+
+def mrDFSpreorder (root):
+    if root is None:
+        return []
+    
+    stack = [root]
+    result = []
+
+    while stack:
+        node = stack.pop()
+        result.append(node.value)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+
+    return result
+
+def mrInOrderDFS (root):
+    if root is None:
+        return []
+    
+    stack = []
+    result = []
+    cur = root
+
+    while stack or cur:
+        while cur:
+            stack.append(cur)
+            cur = cur.left
+        cur = stack.pop()
+        result.append(cur.value)
+        cur = cur.right
+    
+    return result
 
             
-        
+
+
 
