@@ -199,6 +199,33 @@ def BFS (root):
         results.append(level)
     return results
 
+def mrBFS (root):
+    if root is None:
+        return []
+    
+    q = deque()
+    q.append(root)
+    result = []
+
+    while q:
+        qLen = len(q)
+        level = []
+
+        for i in range(qLen):
+            node = q.popleft()
+            level.append(node.value)
+            
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+
+        result.append(level)
+        
+    return result
+
+        
+
 def mrDFSpreorder (root):
     if root is None:
         return []
@@ -234,7 +261,82 @@ def mrInOrderDFS (root):
     
     return result
 
-            
+def mrPostOrderDFS (root):
+    if root is None:
+        return []
+    
+    stack = [root]
+    visited = [False]
+    result = []
+
+    while stack:
+        v = visited.pop()
+        cur = stack.pop()
+        if v:
+            result.append(cur.value)
+        else:
+            stack.append(cur)
+            visited.append(True)
+            if cur.right:
+                stack.append(cur.right)
+                visited.append(False)
+            if cur.left:
+                stack.append(cur.left)
+                visited.append(False)
+
+    return result
 
 
+def preorder_DFS (root):
+    if root is None:
+        return []
+    
+    stack = [root]
+    result = []
+
+    while stack:
+        node = stack.pop()
+        result.append(node.value)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+    return result
+
+def inrderDFS (root):
+    stack = []
+    cur = root
+    result = []
+
+    while stack or cur:
+        if cur.left:
+            stack.append(cur.left)
+            cur = cur.left
+        else:
+            node = stack.pop()
+            result.append(node.value)
+            cur = node.right
+    return result
+
+def postorderDSDFS (root):
+    stack = [root]
+    result = []
+    visited = [False]
+
+    while stack: 
+        v = visited.pop()
+        node = stack.pop()
+        if v:
+            result.append(node.value)
+        else:
+            stack.append(node)
+            visited.append(True)
+            if node.right:
+                stack.append(node.right)
+                visited.append(False)
+            if node.left:
+                stack.append(node.left)
+                visited.append(False)
+    return result
+        
 
